@@ -46,3 +46,27 @@ Select Product_ID, Product_Description, Product_Finish,
  where A.Product_Line_Id in  (Select B.Product_Line_ID
  from PRODUCT_LINE_t as B where Product_Line_Name ='Scandinavia');
 
+
+5. Selecting the most expensive product without using max function.
+
+SELECT Product_Description, Product_Finish, Standard_Price FROM PRODUCT_t PA WHERE Standard_Price > All (SELECT Standard_Price FROM Product_t PB  WHERE PB.Product_ID <> PA.Product_ID);
+
+6. Selecting all the products where the price is greater than the average_price.
+
+SELECT Product_Description, Standard_Price, AVGPRICE FROM (SELECT AVG (Standard_Price) AS AVGPRICE FROM PRODUCT_t), PRODUCT_t WHERE Standard_Price > AVGPRICE;
+
+
+7. Getting the information of all the customers who have order the highest and lowest quantity.
+
+
+SELECT C1.Customer_ID, Customer_Name, Ordered_Quantity, "Largest Quantity" AS QUANTITY
+FROM CUSTOMER_t AS C1, ORDER_t AS O1, Order_line_t AS Q1
+WHERE C1.Customer_ID = O1.Customer_ID AND O1.Order_ID = Q1.Order_ID AND Ordered_Quantity = (SELECT MAX (Ordered_Quantity) FROM Order_line_t)
+UNION 
+SELECT C1.Customer_ID, Customer_Name, Q1.Ordered_Quantity, "Smallest Quantity"
+FROM CUSTOMER_t AS C1, ORDER_t AS O1, Order_line_t AS Q1
+WHERE C1.Customer_ID=O1.Customer_ID AND O1.Order_ID = Q1.Order_ID
+AND Ordered_Quantity = (SELECT MIN (Ordered_Quantity) FROM Order_line_t)
+ORDER BY Ordered_Quantity; 
+
+
