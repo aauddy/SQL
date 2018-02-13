@@ -11,6 +11,8 @@ AND C.TERRITORY_ID = D.TERRITORY_ID
 AND D.TERRITORY_NAME ="SouthWest";
 
 
+
+
 2. Using sub-query technique to write a SQL query to display Order_ID and Order_Date for all the orders made by customers in the territory of Southwest. 
 
 
@@ -29,7 +31,12 @@ SELECT PRODUCT_ID, PRODUCT_DESCRIPTION
 FROM PRODUCT_T
 WHERE STANDARD_PRICE > (SELECT MAX(STANDARD_PRICE) FROM PRODUCT_T WHERE PRODUCT_DESCRIPTION = "COMPUTER DESK");
 
+
+
+
+
 4.	Identifying Customer_Name(s) of the customers who have ordered the product with the largest price?
+
 
 SELECT CUSTOMER_NAME
 FROM CUSTOMER_T A, ORDER_T B, ORDER_LINE_T C, PRODUCT_T D
@@ -39,7 +46,10 @@ AND C.PRODUCT_ID = D.PRODUCT_ID
 AND STANDARD_PRICE = (SELECT MAX(STANDARD_PRICE) FROM PRODUCT_T);
 
 
+
+
 5.  Give 10% discount to all the products manufactured by the product line Scandinavia (i.e., Product_Line_Name= “Scandinavia”).  
+
 
 Select Product_ID, Product_Description, Product_Finish,
  0.90* Standard_Price as Discounted_Price from Product_t as A
@@ -47,16 +57,25 @@ Select Product_ID, Product_Description, Product_Finish,
  from PRODUCT_LINE_t as B where Product_Line_Name ='Scandinavia');
 
 
-5. Selecting the most expensive product without using max function.
+
+
+6. Selecting the most expensive product without using max function.
+
 
 SELECT Product_Description, Product_Finish, Standard_Price FROM PRODUCT_t PA WHERE Standard_Price > All (SELECT Standard_Price FROM Product_t PB  WHERE PB.Product_ID <> PA.Product_ID);
 
-6. Selecting all the products where the price is greater than the average_price.
+
+
+
+7. Selecting all the products where the price is greater than the average_price.
+
 
 SELECT Product_Description, Standard_Price, AVGPRICE FROM (SELECT AVG (Standard_Price) AS AVGPRICE FROM PRODUCT_t), PRODUCT_t WHERE Standard_Price > AVGPRICE;
 
 
-7. Getting the information of all the customers who have order the highest and lowest quantity.
+
+
+8. Getting the information of all the customers who have order the highest and lowest quantity.
 
 
 SELECT C1.Customer_ID, Customer_Name, Ordered_Quantity, "Largest Quantity" AS QUANTITY
