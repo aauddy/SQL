@@ -1,7 +1,8 @@
 This is a snapshot of SQL used to retrieve data from PVFC(Pine Valley Furniture Company Database) dataset.
 
 1. Using WHERE command to join tables and write a query to display Order_ID and Order_Date for all the orders made by customers in the territory of Southwest (i.e., Territory_Name= “Southwest”). 
-.
+
+
 SELECT ORDER_ID, ORDER_DATE
 FROM ORDER_T A, CUSTOMER_T B, DOES_BUSINESS_IN_T C, TERRITORY_T D
 WHERE A.CUSTOMER_ID = B.CUSTOMER_ID
